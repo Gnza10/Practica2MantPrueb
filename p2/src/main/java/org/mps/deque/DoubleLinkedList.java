@@ -1,6 +1,5 @@
 package org.mps.deque;
 
-import org.w3c.dom.Node;
 
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
