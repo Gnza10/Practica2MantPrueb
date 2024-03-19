@@ -1,5 +1,6 @@
 package org.mps.deque;
 
+
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     private LinkedNode<T> first;
@@ -14,7 +15,16 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void prepend(T value) {
-        // TODO
+        if(first == null) {
+            first = new LinkedNode<>(value, null, null);
+            last = first;
+            ++size;
+        } else {
+            LinkedNode<T> newNode = new LinkedNode<>(value, null, first);
+            first.setPrevious(newNode);
+            first = newNode;
+            ++size;
+        }
     }
 
     @Override
@@ -33,7 +43,18 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void deleteFirst() {
-        // TODO
+        if(first == null){
+            throw new DoubleLinkedQueueException("The deque is empty");
+        }
+        if(first == last){
+            first = null;
+            last = null;
+            size = 0;
+        } else {
+            first = first.getNext();
+            first.setPrevious(null);
+            --size;
+        }
     }
 
     @Override
@@ -56,7 +77,10 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     @Override
     public T first() {
         // TODO
-        return null;
+        if(first == null){
+            throw new DoubleLinkedQueueException("The deque is empty");
+        }
+        return first.getItem();
     }
 
     @Override
@@ -68,6 +92,6 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     @Override
     public int size() {
         // TODO
-        return 0;
+        return this.size;
     }
 }
