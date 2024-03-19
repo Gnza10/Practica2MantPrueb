@@ -30,7 +30,16 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void append(T value) {
-        // TODO
+        if(last == null){
+            last = new LinkedNode<T>(value, null, null);
+            first = last;
+        }
+        else{
+            LinkedNode<T> newlast = new LinkedNode<T>(value, last, null);
+            last.setNext(newlast);
+            last = newlast;
+        }
+        size++;
     }
 
     @Override
@@ -51,7 +60,19 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void deleteLast() {
-        // TODO
+        if(last == null){
+            throw new DoubleLinkedQueueException("The queue is empty");
+        }
+        else if(last == first) {
+            last = null;
+            first = null;
+        }
+        else{
+            LinkedNode<T> newLast = last.getPrevious();
+            newLast.setNext(null);
+            last = newLast;
+        }
+        size--;
     }
 
     @Override
@@ -65,8 +86,8 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T last() {
-        // TODO
-        return null;
+        if(last == null) throw new DoubleLinkedQueueException("The queue is empty");
+        return last.getItem();
     }
 
     @Override
