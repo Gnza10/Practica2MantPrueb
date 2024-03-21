@@ -1,3 +1,4 @@
+package org.mps.deque;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -5,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mps.deque.*;
 
 public class DoubleLinkedListTest {
     DoubleLinkedList<Integer> list;
@@ -15,6 +15,7 @@ public class DoubleLinkedListTest {
         list = new DoubleLinkedList<>();
     }
 
+    @Test
     @DisplayName("Testing constructor")
     void test_Constructor_ReturnSize0(){
         DoubleLinkedList<Integer> listConst = new DoubleLinkedList<>();
