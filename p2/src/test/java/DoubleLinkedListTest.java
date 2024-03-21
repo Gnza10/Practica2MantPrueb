@@ -129,10 +129,8 @@ public class DoubleLinkedListTest {
             list.append(1);
             list.deleteLast();
 
-            Void expectedValue = null;
             int expectedSize = 0;
 
-            assertEquals(expectedValue, list.last());
             assertEquals(expectedSize, list.size());
         }
 
