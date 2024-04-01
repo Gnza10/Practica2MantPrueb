@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class DoubleLinkedListTest {
     DoubleLinkedList<Integer> list;
@@ -199,4 +201,41 @@ public class DoubleLinkedListTest {
             assertEquals(1, size);
         }
     }
+
+    // PARTE 2 ------------------------------------------------------------
+
+    @ParameterizedTest
+    @DisplayName("Testing contains")
+    @CsvSource({
+    "1, true",
+    "0, false"
+    })
+    void test_containsValues_ReturnTrueIfContainsValue(int value, boolean expectedValue){
+        list.append(1); 
+
+        boolean actualValue = list.contains(value);
+        
+        assertEquals(expectedValue, actualValue);
+    }
+
+    @ParameterizedTest
+    @DisplayName("Testing remove")
+    @CsvSource({
+    "1, 2",
+    "2, 2",
+    "3, 2",
+    "0, 3"
+    })
+    void test_removeValues_ReturnNewListWithValueRemoved(int value, int expectedSize){
+        list.append(1); 
+        list.append(2);
+        list.append(3);
+        boolean expectedValueInList = false;
+        
+        list.remove(value);
+
+        assertEquals(expectedValueInList, list.contains(value));
+        assertEquals(expectedSize, list.size());
+    }
+
 }
