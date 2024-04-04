@@ -1,6 +1,13 @@
 package org.mps.deque;
 
+<<<<<<< Updated upstream
 import java.util.Comparator;
+=======
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+>>>>>>> Stashed changes
 
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
@@ -77,7 +84,6 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T first() {
-        // TODO
         if(first == null){
             throw new DoubleLinkedQueueException("The deque is empty");
         }
@@ -92,10 +98,10 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public int size() {
-        // TODO
         return this.size;
     }
 
+<<<<<<< Updated upstream
     @Override
     public boolean contains(T value){
         boolean found = false;
@@ -141,5 +147,52 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     public void sort(Comparator<? super T> comparator) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'sort'");
+=======
+
+    //Second part
+    @Override
+    public T get(int index) {
+        if(index < 0 || index >= size){
+            throw new DoubleLinkedQueueException("Index out of bounds");
+        }
+        LinkedNode<T> current = first;
+        for(int i = 0; i < index; i++){
+            current = current.getNext();
+        }
+        return current.getItem();  
+    }
+
+    @Override
+    public boolean contains(T value) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+    }
+
+    @Override
+    public void remove(T value) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    }
+
+    //Second part
+    @Override
+    public void sort(Comparator<? super T> comparator) {
+        if (size > 1) {
+            List<T> list = new ArrayList<>();
+            LinkedNode<T> current = first;
+            while (current != null) {
+                list.add(current.getItem());
+                current = current.getNext();
+            }
+
+            Collections.sort(list, comparator);
+
+            LinkedNode<T> currentNew = first;
+            for (T t : list) {
+                currentNew.setItem(t);
+                currentNew = currentNew.getNext();
+            }
+        }
+>>>>>>> Stashed changes
     }
 }

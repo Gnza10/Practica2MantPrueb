@@ -1,6 +1,7 @@
 package org.mps.deque;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -200,6 +201,43 @@ public class DoubleLinkedListTest {
             
             assertEquals(1, size);
         }
+
+        //Second part
+        @ParameterizedTest
+        @CsvSource({"-1", "2"})
+        @DisplayName("Testing getting an element out of bounds")
+        void test_GetOutOfBounds_ThrowsDoubleLinkedQueueException(int index){
+            list.append(1);
+            assertThrows(DoubleLinkedQueueException.class, () -> list.get(index));
+        }
+
+        //Second part
+        @Test
+        @DisplayName("Testing getting an element")
+        void test_Get_ReturnElement(){
+            list.append(1);
+            list.append(2);
+            list.append(3);
+
+            int expectedValue = 3;
+            int actualValue = list.get(2);
+            
+            assertEquals(expectedValue, actualValue);
+        }
+    }
+    
+    @Test
+    @DisplayName("Testing sort")
+    void test_Sort_ReturnFirstSmallerThanNext(){
+        list.append(2);
+        list.append(1);
+        list.append(3);
+
+        list.sort(Integer::compareTo);        
+        int first = list.first();
+        int last = list.last();
+        
+        assertTrue(first < last);
     }
 
     // PARTE 2 ------------------------------------------------------------
