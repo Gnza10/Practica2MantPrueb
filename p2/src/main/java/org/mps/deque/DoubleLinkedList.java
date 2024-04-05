@@ -1,11 +1,9 @@
 package org.mps.deque;
 
-<<<<<<< Updated upstream
 import java.util.Comparator;
-=======
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
@@ -99,7 +97,6 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
         return this.size;
     }
 
-<<<<<<< Updated upstream
     @Override
     public boolean contains(T value){
         boolean found = false;
