@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
->>>>>>> Stashed changes
 
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
@@ -105,7 +103,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     @Override
     public boolean contains(T value){
         boolean found = false;
-        LinkedNode node = this.first;
+        LinkedNode<T> node = this.first;
 
         while(!found && node!=null){
             found = node.getItem() == value;
@@ -123,7 +121,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
         else{
             boolean removed = false;
-            LinkedNode node = this.first.getNext();
+            LinkedNode<T> node = this.first.getNext();
 
                 while(!removed && node!=this.last){
                     if(node.getItem() == value){
@@ -139,60 +137,30 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T get(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        if(index < 0 || index >= size) throw new DoubleLinkedQueueException("Index out of bounds");
+        LinkedNode<T> node = first;
+        for(int i = 0; i < index; i++){
+            node = node.getNext();
+        }
+        return node.getItem();
     }
 
     @Override
-    public void sort(Comparator<? super T> comparator) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sort'");
-=======
-
-    //Second part
-    @Override
-    public T get(int index) {
-        if(index < 0 || index >= size){
-            throw new DoubleLinkedQueueException("Index out of bounds");
-        }
+    public void sort(Comparator<? super T> comparator) {        
+        List<T> list = new ArrayList<>();
         LinkedNode<T> current = first;
-        for(int i = 0; i < index; i++){
+        while (current != null) {
+            list.add(current.getItem());
             current = current.getNext();
         }
-        return current.getItem();  
-    }
 
-    @Override
-    public boolean contains(T value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
-    }
+        Collections.sort(list, comparator);
 
-    @Override
-    public void remove(T value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
-    }
-
-    //Second part
-    @Override
-    public void sort(Comparator<? super T> comparator) {
-        if (size > 1) {
-            List<T> list = new ArrayList<>();
-            LinkedNode<T> current = first;
-            while (current != null) {
-                list.add(current.getItem());
-                current = current.getNext();
-            }
-
-            Collections.sort(list, comparator);
-
-            LinkedNode<T> currentNew = first;
-            for (T t : list) {
-                currentNew.setItem(t);
-                currentNew = currentNew.getNext();
-            }
+        LinkedNode<T> currentNew = first;
+        for (T t : list) {
+            currentNew.setItem(t);
+            currentNew = currentNew.getNext();
         }
->>>>>>> Stashed changes
+        
     }
 }

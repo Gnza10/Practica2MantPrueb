@@ -202,42 +202,32 @@ public class DoubleLinkedListTest {
             assertEquals(1, size);
         }
 
-        //Second part
-        @ParameterizedTest
-        @CsvSource({"-1", "2"})
-        @DisplayName("Testing getting an element out of bounds")
-        void test_GetOutOfBounds_ThrowsDoubleLinkedQueueException(int index){
-            list.append(1);
-            assertThrows(DoubleLinkedQueueException.class, () -> list.get(index));
-        }
-
-        //Second part
+        //Parte 2
         @Test
-        @DisplayName("Testing getting an element")
-        void test_Get_ReturnElement(){
+        @DisplayName("Testing gettting an element in a position")
+        void test_GetElement_ReturnValue(){
             list.append(1);
             list.append(2);
             list.append(3);
-
-            int expectedValue = 3;
-            int actualValue = list.get(2);
             
-            assertEquals(expectedValue, actualValue);
+            int value = list.get(2);
+            
+            assertEquals(3, value);
         }
-    }
-    
-    @Test
-    @DisplayName("Testing sort")
-    void test_Sort_ReturnFirstSmallerThanNext(){
-        list.append(2);
-        list.append(1);
-        list.append(3);
 
-        list.sort(Integer::compareTo);        
-        int first = list.first();
-        int last = list.last();
-        
-        assertTrue(first < last);
+        @ParameterizedTest
+        @DisplayName("Testing gettting an element in a position out of bounds")
+        @CsvSource({
+        "-1",
+        "3"
+        })
+        void test_GetElementOutOfBounds_ThrowsDoubleLinkedQueueException(int pos){
+            list.append(1);
+            list.append(2);
+            list.append(3);
+            
+            assertThrows(DoubleLinkedQueueException.class, () -> list.get(pos));
+        }
     }
 
     // PARTE 2 ------------------------------------------------------------
@@ -274,6 +264,20 @@ public class DoubleLinkedListTest {
 
         assertEquals(expectedValueInList, list.contains(value));
         assertEquals(expectedSize, list.size());
+    }
+
+    @Test
+    @DisplayName("Testing sort")
+    void test_sort_ReturnSortedList(){
+        list.append(3);
+        list.append(1);
+        list.append(2);
+        
+        list.sort((a, b) -> a - b);
+        
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(3, list.get(2));
     }
 
 }
