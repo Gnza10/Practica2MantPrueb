@@ -1,6 +1,7 @@
 package org.mps.deque;
 
 import java.util.Comparator;
+import java.util.*;
 
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
@@ -77,7 +78,6 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T first() {
-        // TODO
         if(first == null){
             throw new DoubleLinkedQueueException("The deque is empty");
         }
@@ -92,14 +92,13 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public int size() {
-        // TODO
         return this.size;
     }
 
     @Override
     public boolean contains(T value){
         boolean found = false;
-        LinkedNode node = this.first;
+        LinkedNode<T> node = this.first;
 
         while(!found && node!=null){
             found = node.getItem() == value;
@@ -117,7 +116,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
         else{
             boolean removed = false;
-            LinkedNode node = this.first.getNext();
+            LinkedNode<T> node = this.first.getNext();
 
                 while(!removed && node!=this.last){
                     if(node.getItem() == value){
@@ -133,13 +132,30 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T get(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        if(index < 0 || index >= size) throw new DoubleLinkedQueueException("Index out of bounds");
+        LinkedNode<T> node = first;
+        for(int i = 0; i < index; i++){
+            node = node.getNext();
+        }
+        return node.getItem();
     }
 
     @Override
-    public void sort(Comparator<? super T> comparator) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sort'");
+    public void sort(Comparator<? super T> comparator) {        
+        List<T> list = new ArrayList<>();
+        LinkedNode<T> current = first;
+        while (current != null) {
+            list.add(current.getItem());
+            current = current.getNext();
+        }
+
+        Collections.sort(list, comparator);
+
+        LinkedNode<T> currentNew = first;
+        for (T t : list) {
+            currentNew.setItem(t);
+            currentNew = currentNew.getNext();
+        }
+        
     }
 }
